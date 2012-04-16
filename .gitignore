@@ -1,0 +1,6 @@
+app/cache/*
+app/config/parameters.ini
+*.iws
+*.ipr
+*.iml
+app/logs/*.log
