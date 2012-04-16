@@ -1,0 +1,17 @@
+{% extends 'OrdrAdminBundle::layout.html.twig' %}
+
+{% block body %}
+{% if error %}
+<div>{{ error.message }}</div>
+{% endif %}
+<div class="row">
+  <div class="four columns push-four" id="login-form">
+    <form class="nice" action="{{ path('login_check') }}" method="post">
+      <input class="input-text" placeholder="Username" type="text" id="username" name="_username"
+             value="{{ last_username }}"/>
+      <input class="input-text" placeholder="Password" type="password" id="password" name="_password"/>
+      <button type="submit">login</button>
+    </form>
+  </div>
+</div>
+  {% endblock %}

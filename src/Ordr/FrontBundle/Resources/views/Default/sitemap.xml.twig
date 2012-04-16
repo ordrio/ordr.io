@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  {% for ordrMeta in ordrMetas %}
+  <url>
+    <loc>{{ url("ordrmeta_show", {"token":ordrMeta.token}) }}</loc>
+    <lastmod>{{ ordrMeta.createdAt|date('Y-m-d') }}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  {% endfor %}
+</urlset>

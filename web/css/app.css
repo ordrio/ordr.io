@@ -1,0 +1,191 @@
+/* Foundation v2.2 http://foundation.zurb.com */
+/* Artfully masterminded by ZURB  */
+
+/* -------------------------------------------------- 
+   Table of Contents
+-----------------------------------------------------
+:: Shared Styles
+:: Page Name 1
+:: Page Name 2
+*/
+
+/* -----------------------------------------
+  Shared Styles
+----------------------------------------- */
+
+#options label,
+#options a {
+  font-family: 'Happy Monkey', cursive;
+}
+
+span.stamp {
+  color: #c1c1c1;
+}
+
+span.stamp:hover {
+  color: #888;
+}
+
+header h1 {
+  text-align: center;
+  padding: 1em;
+  font-family: 'Revalia', cursive;
+}
+
+#ordr-meta h2 {
+  text-align: center;
+  font-family: 'Happy Monkey', cursive;
+}
+
+.centered {
+  margin: 0 auto;
+  text-align: center;
+}
+
+#admin-msg,
+#admin-msg-link {
+  font-family: 'Happy Monkey', cursive;
+  font-size: 0.9em;
+}
+#admin-msg-link {
+  text-align: right;
+}
+
+.button#ordrmeta-create {
+  padding: 0.5em 1em;
+  margin: 0.5em 0;
+}
+
+#options {
+  text-align: left;
+  margin: 0.3em 1.5em
+}
+
+#options a {
+  margin-bottom: 0.5em;
+  display: inline-block;
+}
+
+#options-link {
+  display: none;
+}
+
+#options #options-menu label,
+#options #options-menu input {
+  display: inline;
+  margin-top: 0;
+}
+
+span.toggle.open {
+  line-height: 6px;
+  text-indent: 2px;
+  width: 8px;
+  height: 8px;
+}
+
+span.toggle {
+  line-height: 7px;
+  margin-right: 3px;
+  display: inline-block;
+  border: 1px #000 dotted;
+  width: 7px;
+  height: 7px;
+}
+
+form#user-delete-form,
+form#admin-delete-form,
+form#admin-check-form {
+  display: inline;
+}
+
+#user-delete-form button,
+#admin-delete-form button,
+#admin-check-form button {
+  padding: 0 4px 1px;
+  line-height: 14px;
+  position: relative;
+  bottom: 1px;
+  display: inline-block;
+}
+
+/* -----------------------------------------
+   Page Name 1
+----------------------------------------- */
+
+#ordrs h4 {
+  font-family: 'Happy Monkey', cursive;
+  font-size: 1.3em;
+}
+
+#form,
+form.nice,
+#login-form {
+  text-align: center;
+  background: #efefef;
+  font-family: 'Droid Sans', sans-serif;
+  min-width: 297px;
+  width: 297px;
+}
+
+#form form input,
+form.nice input,
+#login-form form input {
+  display: block;
+  margin: 1em auto 0;
+  font-family: 'Happy Monkey', cursive;
+  font-size: 1.4em;
+}
+
+#form form button,
+form.nice button,
+#login-form form button {
+  margin-top: 1em;
+  font-family: 'Droid Sans', sans-serif;
+  font-size: 1.4em;
+}
+
+form#revert-form button {
+  margin-top: 0;
+}
+
+h1#ordr {
+  margin-bottom: 0;
+}
+
+div#ordr {
+  margin-bottom: 0.5em;
+}
+
+#ordr a {
+  cursor: pointer;
+}
+
+#next-ordr,
+#sum {
+  font-weight: bold;
+  font-size: 2em;
+  font-family: 'Dosis', sans-serif;
+}
+
+#sum {
+  text-align: right;
+}
+
+.helptext {
+  font-family: 'Happy Monkey', cursive;
+  font-size: 1.5em;
+  font-weight: bold;
+  line-height: 1.6em;
+}
+
+#social {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+}
+
+/* -----------------------------------------
+  Page Name 2
+----------------------------------------- */
+
+

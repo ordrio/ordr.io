@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en" datatype="plaintext" original="file.ext">
+    <body>
+      <trans-unit id="1">
+        <source>jquiI18N</source>
+        <target>en</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Rückgängig machen</source>
+        <target>Revert</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>admin view, bookmark this!</source>
+        <target>admin view, bookmark this!</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>Erstellen</source>
+        <target>create</target>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>Eintragen</source>
+        <target>Add</target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>Name</source>
+        <target>Name</target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>Wann</source>
+        <target>Date</target>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>Dein Name</source>
+        <target>Your Name</target>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>Beschreibung</source>
+        <target>Description</target>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>Wieviel</source>
+        <target>How much</target>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>index.helptext</source>
+        <target>
+          collect orders for whatever you like.
+          create a new ordr.io and share the link.
+        </target>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>show.helptext</source>
+        <target>
+          add your order to the list. fill in your name,
+          a description of what you want to order and how much of it.
+        </target>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>Alles rückgängig machen</source>
+        <target>
+          Revert all
+        </target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

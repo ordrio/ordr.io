@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en" datatype="plaintext" original="file.ext">
+    <body>
+      <trans-unit id="1">
+        <source>jquiI18N</source>
+        <target>de</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Rückgängig machen</source>
+        <target>Rückgängig machen</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>admin view, bookmark this!</source>
+        <target>admin ansicht, bookmarken!</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>Erstellen</source>
+        <target>
+            Bestellungen aufnehmen
+        </target>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>Eintragen</source>
+        <target>Eintragen</target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>Name</source>
+        <target>Name (z.B. Pizza)</target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>Wann</source>
+        <target>Wann</target>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>Dein Name</source>
+        <target>Dein Name</target>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>Beschreibung</source>
+        <target>Beschreibung</target>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>Wieviel</source>
+        <target>Wieviel</target>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>index.helptext</source>
+        <target>
+          sammle bestellungen. erstelle ein neues ordr.io und verteile den link.
+        </target>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>show.helptext</source>
+        <target>
+          füge deine bestellung zur liste hinzu indem du angibts wer du bist, was du willst und wieviel davon.
+        </target>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>Alles rückgängig machen</source>
+        <target>
+          Alles rückgängig machen
+        </target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

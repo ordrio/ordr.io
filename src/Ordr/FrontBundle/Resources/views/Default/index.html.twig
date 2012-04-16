@@ -1,0 +1,41 @@
+{% extends 'OrdrFrontBundle::layout.html.twig' %}
+
+{% block body %}
+<div id="main">
+  <div id="form">
+    <form class="nice" action="{{ path('ordrmeta_create') }}" method="post" {{ form_enctype(form) }}>
+      {{ form_errors(form) }}
+
+      {{ form_widget(form.name, {'id':'name', 'attr':{'placeholder' : 'Name'|trans}}) }}
+      {{ form_errors(form.name) }}
+
+      {{ form_widget(form.next_ordr, {'id':'next_ordr', 'value':now|format_date, 'attr':{'placeholder' : 'Wann'|trans}}) }}
+      {{ form_errors(form.next_ordr) }}
+
+      <div id="options">
+        <span id="options-link">
+          <a href="javascript:void(0);"><span class="toggle">&gt;</span> Optionen</a>
+        </span>
+
+        <div id="options-menu">
+          {{ form_widget(form.public) }}
+          {{ form_label(form.public, 'Öffentliche Bestellliste') }}
+        </div>
+      </div>
+
+      {{ form_rest(form) }}
+      <button id="ordrmeta-create" class="button radius" type="submit">{{ 'Erstellen'|trans }}</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block help %}
+<div class="helptext hide-on-phones">
+  {{ 'index.helptext'|trans }}
+</div>
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}

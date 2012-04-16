@@ -1,0 +1,26 @@
+OrdrAdminBundle:
+    resource: "@OrdrAdminBundle/Controller/"
+    type:     annotation
+
+OrdrFrontBundle:
+    resource: "@OrdrFrontBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+login:
+    pattern:   /admin/login
+    defaults:  { _controller: OrdrAdminBundle:Security:login }
+
+login_check:
+    pattern:   /admin/login_check
+
+_welcome:
+    pattern:  /
+    defaults: { _controller: OrdrFrontBundle:Default:index }
+
+
+
+# Internal routing configuration to handle ESI
+#_internal:
+#   resource: "@FrameworkBundle/Resources/config/routing/internal.xml"
+#   prefix:   /_internal
