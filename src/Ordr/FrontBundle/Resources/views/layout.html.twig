@@ -58,34 +58,6 @@ chromium.org/developers/how-tos/chrome-frame-getting-started -->
     {% block help %}{% endblock %}
   </div>
 </div>
-<div id="social" class="hide-on-phones">
-  <div class="addthis_toolbox addthis_default_style ">
-    <ul>
-      <li><a class="addthis_button_facebook_like" fb:like:layout="button_count"></a></li>
-      <li><a class="addthis_button_tweet"></a></li>
-      <li><a class="addthis_button_google_plusone" g:plusone:size="medium"></a></li>
-      <li><a class="addthis_counter addthis_pill_style"></a></li>
-    </ul>
-  </div>
-  <br/>
-  <a class="FlattrButton" style="display:none;" href="http://ordr.io/"></a>
-  <noscript><a href="http://flattr.com/thing/616798/ordr-io" target="_blank">
-    <img src="http://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this"
-         border="0"/></a>
-  </noscript>
-  <!-- AddThis Button BEGIN -->
-  <br/>Follow Us<br/>
-
-  <div class="addthis_toolbox addthis_32x32_style addthis_default_style">
-    <a class="addthis_button_facebook_follow" addthis:userid="ordr.io"></a>
-    <a class="addthis_button_twitter_follow" addthis:userid="ordr_io"></a>
-    <a class="addthis_button_google_follow" addthis:userid="114012584033775609358"></a>
-  </div>
-  <script type="text/javascript"
-          src="//s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4f82e3a77bbffe06"></script>
-  <!-- AddThis Button END -->
-</div>
-<a href="http://github.com/ordrio/ordr.io"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/7afbc8b248c68eb468279e8c17986ad46549fb71/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub"></a>
 <footer>
 
 </footer>
@@ -98,9 +70,6 @@ chromium.org/developers/how-tos/chrome-frame-getting-started -->
     locale: '{{ 'jquiI18N'|trans }}'
   }
 </script>
-<!-- AddThis Button BEGIN -->
-<script type="text/javascript" src="//s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4f82e3a77bbffe06"></script>
-<!-- AddThis Button END -->
 <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="{{ asset('js/libs/jquery-1.7.2.min.js') }}"><\/script>')</script>
@@ -116,42 +85,6 @@ chromium.org/developers/how-tos/chrome-frame-getting-started -->
 <script src="{{ asset('js/app.js') }}"></script>
 <!-- end scripts -->
 
-{% if app.environment != 'dev' %}
-<!-- Asynchronous Google Analytics snippet. Change UA-XXXXX-X to be your site's ID.
-mathiasbynens.be/notes/async-analytics-snippet -->
-<script>
-  var _gaq = [
-    ['_setAccount', 'UA-30685097-1'],
-    ['_gat._anonymizeIp'],
-    ['_trackPageview']
-  ];
-  (function ( d, t ) {
-    var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
-    g.src = ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js';
-    s.parentNode.insertBefore(g, s)
-  }(document, 'script'));
-</script>
-{% endif %}
-<script type="text/javascript">
-  var uvOptions = {};
-  (function () {
-    var uv = document.createElement('script');
-    uv.type = 'text/javascript';
-    uv.async = true;
-    uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/eRsU5Zp8XCsblTM3SevkQg.js';
-    var s = document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(uv, s);
-  })();
-</script>
-<script type="text/javascript">
-  /* <![CDATA[ */
-  (function () {
-    var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
-    s.async = true;
-    s.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'api.flattr.com/js/0.6/load.js?mode=auto';
-    t.parentNode.insertBefore(s, t);
-  })();
-  /* ]]> */</script>
 {% block javascripts %}{% endblock %}
 </body>
 </html>
