@@ -28,6 +28,8 @@
     href='//fonts.googleapis.com/css?family=Dosis:800|Droid+Sans:400,700|Revalia|Happy+Monkey&subset=latin,latin-ext'
     rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="{{ asset('css/flick/jquery-ui-1.8.18.custom.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/jquery-ui-timepicker-addon.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/chosen.css') }}">
   <link rel="stylesheet" href="{{ asset('css/style.css') }}">
   <!-- link rel="stylesheet" href="{{ asset('css/app.css') }}" -->
 
@@ -45,7 +47,7 @@ chromium.org/developers/how-tos/chrome-frame-getting-started -->
   different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to
   experience this site.</p><![endif]-->
 <header>
-  <h1 id="ordr"><a href="/">ordr.io</a></h1>
+  <h1 id="ordr"><a href="{{ url('index') }}">ordr.io</a></h1>
 </header>
 <div role="main">
   <div id="above">
@@ -80,9 +82,10 @@ chromium.org/developers/how-tos/chrome-frame-getting-started -->
     <a class="addthis_button_google_follow" addthis:userid="114012584033775609358"></a>
   </div>
   <script type="text/javascript"
-          src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4f82e3a77bbffe06"></script>
+          src="//s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4f82e3a77bbffe06"></script>
   <!-- AddThis Button END -->
 </div>
+<a href="http://github.com/ordrio/ordr.io"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/7afbc8b248c68eb468279e8c17986ad46549fb71/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub"></a>
 <footer>
 
 </footer>
@@ -95,16 +98,6 @@ chromium.org/developers/how-tos/chrome-frame-getting-started -->
     locale: '{{ 'jquiI18N'|trans }}'
   }
 </script>
-<script type="text/javascript">
-  /* <![CDATA[ */
-  (function () {
-    var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
-    s.type = 'text/javascript';
-    s.async = true;
-    s.src = 'http://api.flattr.com/js/0.6/load.js?mode=auto';
-    t.parentNode.insertBefore(s, t);
-  })();
-  /* ]]> */</script>
 <!-- AddThis Button BEGIN -->
 <script type="text/javascript" src="//s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4f82e3a77bbffe06"></script>
 <!-- AddThis Button END -->
@@ -115,6 +108,8 @@ chromium.org/developers/how-tos/chrome-frame-getting-started -->
 {% if 'jquiI18N'|trans != 'en' %}
 <script src="/js/i18n/jquery.ui.datepicker-{{('jquiI18N'|trans)}}.js"></script>
 {% endif %}
+<script src="{{ asset('js/libs/jquery-ui-timepicker-addon.js') }}"></script>
+<script src="{{ asset('js/libs/chosen.jquery.min.js') }}"></script>
 <!-- scripts concatenated and minified via build script -->
 <script src="{{ asset('js/plugins.js') }}"></script>
 <script src="{{ asset('js/script.js') }}"></script>
@@ -148,6 +143,15 @@ mathiasbynens.be/notes/async-analytics-snippet -->
     s.parentNode.insertBefore(uv, s);
   })();
 </script>
+<script type="text/javascript">
+  /* <![CDATA[ */
+  (function () {
+    var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
+    s.async = true;
+    s.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'api.flattr.com/js/0.6/load.js?mode=auto';
+    t.parentNode.insertBefore(s, t);
+  })();
+  /* ]]> */</script>
 {% block javascripts %}{% endblock %}
 </body>
 </html>

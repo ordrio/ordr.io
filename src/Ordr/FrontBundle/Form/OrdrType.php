@@ -12,6 +12,7 @@ class OrdrType extends AbstractType
         $builder
             ->add('username')
             ->add('amount')
+            ->add('price')
             ->add('extra', 'text')
         ;
     }

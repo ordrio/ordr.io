@@ -48,9 +48,13 @@ jQuery(document).ready(function ( $ ) {
     $.datepicker.setDefaults($.datepicker.regional[ordr.locale]);
   }
 
-  $(".input-date").datepicker({
-    defaultDate: +0
+
+  $(".input-date").datetimepicker({
+    showSecond: true,
+    timeFormat: 'hh:mm:ss'
   });
+
+  $('select').chosen();
 
   var basePath = /app_dev/.test(window.location.href) ? window.location.href : "";
 

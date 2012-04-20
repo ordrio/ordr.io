@@ -229,6 +229,10 @@ td { vertical-align: top; }
    Author:
    ========================================================================== */
 
+html, button, input, select, textarea {
+  font-family: 'Droid Sans', sans-serif;
+}
+
 .clearfix .columns {
   float: left;
 }
@@ -244,7 +248,7 @@ td { vertical-align: top; }
   font-size: 13px;
   font-size: 1.3rem;
   line-height: 1;
-  font-family: "Helvetica Neue", "Helvetica", Arial, Verdana, sans-serif;
+  font-family: 'Droid Sans', sans-serif;
   position: relative;
   cursor: pointer;
   border: none;
@@ -325,7 +329,7 @@ form.nice button {
 
 form.nice input {
   width: 254px;
-  margin: 0 auto 20px;
+  margin: 0 auto 10px;
 }
 
 header #ordr a {
@@ -343,9 +347,8 @@ header #ordr a {
   float: left;
   position: relative;
   left: 315px;
-  overflow: visible;
   height: 0;
-  width: auto;
+  width: 250px;
   top: -25px;
 }
 
@@ -436,6 +439,51 @@ form#admin-check-form {
   width: 100% !important;
 }
 
+input#amount,
+input#price {
+  width: 110px;
+  float: left;
+}
+
+input#price {
+  float: left;
+  width: 130px;
+  position: relative;
+  left: 6px;
+}
+
+ul li span.extra {
+  color: #AAAAAA;
+  font-size: 0.7em;
+}
+
+ul.condensed li span.sum {
+  text-decoration: underline;
+}
+
+ul.condensed li span.sum {
+  border-bottom: solid 1px #000;
+}
+
+#ordrs ul li {
+  text-align: right;
+}
+
+#ordrs ul li.sum {
+  border-top: 1px solid #000;
+  margin-top: 3px;
+  padding-top: 3px;
+}
+
+#ordrs ul.ordr-list li {
+  padding: 5px 0;
+  text-align: left;
+}
+
+ul li span.extra:hover {
+  color: #313131;
+}
+
 span.toggle {
   line-height: 6px;
   margin-right: 3px;
@@ -451,7 +499,26 @@ span.toggle {
   text-align: left;
 }
 
+.chzn-container.chzn-container-single {
+  min-width: 55px;
+}
+
+.widget-label {
+  width: 30px;
+  display: inline-block;
+}
+
+.widget-date,
+.widget-time {
+  font-family: 'Happy Monkey', cursive;
+}
+
+.widget-date {
+  margin-bottom: 5px;
+}
+
 #options label,
+form label,
 #options a {
   font-family: 'Happy Monkey', cursive;
 }

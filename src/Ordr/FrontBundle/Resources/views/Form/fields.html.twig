@@ -17,9 +17,10 @@
 {% spaceless %}
 {% if widget == 'single_text' %}
 <input class="input-date input-text" type="text" {{ block('widget_attributes') }}
-       {% if value is not empty %}value="{{ value }}" {% endif %}/>
+       {% if value is not empty %}value="{{ value|format_datetime }}" {% endif %}/>
 {% else %}
-<div {{ block('widget_container_attributes') }}>
+<div class="widget-date" {{ block('widget_container_attributes') }}>
+  <span class="widget-date-label widget-label">{{ 'am'|trans }}</span>
   {{ date_pattern|replace({
                  '{{ year }}':  form_widget(form.year),
                  '{{ month }}': form_widget(form.month),
@@ -29,3 +30,17 @@
 {% endif %}
 {% endspaceless %}
 {% endblock date_widget %}
+
+{% block time_widget %}
+{% spaceless %}
+   {% if widget == 'single_text' %}
+       {{ block('input') }}
+   {% else %}
+       <div class="widget-time" {{ block('widget_container_attributes') }}>
+        <span class="widget-time-label widget-label">{{ 'um'|trans }}</span>
+        {{ form_widget(form.hour, { 'attr': { 'size': '1' } }) }}:{{ form_widget(form.minute, { 'attr': { 'size': '1' } }) }}{% if with_seconds %}:{{ form_widget(form.second, { 'attr': { 'size': '1' } }) }}{% endif %}
+        {{ 'Uhr'|trans }}
+       </div>
+   {% endif %}
+{% endspaceless %}
+{% endblock time_widget %}

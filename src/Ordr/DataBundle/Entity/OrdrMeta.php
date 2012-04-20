@@ -32,9 +32,9 @@ class OrdrMeta
   private $name;
 
   /**
-   * @var date $next_ordr
+   * @var \DateTime $next_ordr
    *
-   * @ORM\Column(name="next_ordr", type="date")
+   * @ORM\Column(name="next_ordr", type="datetime")
    * @Assert\NotBlank()
    */
   private $next_ordr;
@@ -68,7 +68,7 @@ class OrdrMeta
   private $ordrs;
 
   /**
-   * @var datetime $created_at
+   * @var \DateTime $created_at
    *
    * @ORM\Column(name="created_at", type="datetime")
    */
@@ -112,7 +112,7 @@ class OrdrMeta
   /**
    * Set next_ordr
    *
-   * @param Date $nextOrdr
+   * @param \DateTime $nextOrdr
    */
   public function setNextOrdr($nextOrdr)
   {
@@ -122,7 +122,7 @@ class OrdrMeta
   /**
    * Get next_ordr
    *
-   * @return date
+   * @return \DateTime
    */
   public function getNextOrdr()
   {
@@ -222,7 +222,7 @@ class OrdrMeta
   }
 
   /**
-   * @return datetime
+   * @return \DateTime
    */
   public function getCreatedAt()
   {

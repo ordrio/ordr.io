@@ -12,7 +12,7 @@ class OrdrMetaType extends AbstractType
     $builder
       ->add('name')
       ->add('public')
-      ->add('next_ordr', 'date', array('widget' => 'single_text', 'format' => \IntlDateFormatter::SHORT));
+      ->add('next_ordr', 'datetime');
   }
 
   public function getName()

@@ -34,9 +34,16 @@ class ApiController extends Controller
     $ordrs = $ordrRepo->findAllExtraLikeByToken($token, $extraStartsWith);
     $extras = array();
 
+    $i18nPrice = $this->get('sonata.intl.templating.helper.number');
+
     if($ordrMeta->getPublic()) {
       foreach ($ordrs as $ordr) {
-        $extras[] = array('id' => $ordr->getId(), 'label' => $ordr->getExtra(), 'value' => $ordr->getExtra());
+        $extras[] = array(
+          'label' => $ordr['extra'],
+          'value' => $ordr['extra'],
+          'localePrice' => $i18nPrice->formatCurrency($ordr['price'],'EUR'),
+          'price' => $i18nPrice->formatDecimal($ordr['price'])
+        );
       }
     }
 

@@ -97,14 +97,14 @@ class OrdrRepository extends EntityRepository
 
     $query = $em->createQuery(
       '
-        SELECT o, m FROM
+        SELECT DISTINCT o.extra, o.price FROM
           OrdrDataBundle:Ordr o
         JOIN o.ordr m
         WHERE m.token = :token AND o.extra like :extraStartsWith
       '
     );
     $query->setParameter('token', $token);
-    $query->setParameter('extraStartsWith', $extraStartsWith.'%');
+    $query->setParameter('extraStartsWith', '%'.$extraStartsWith.'%');
 
     return $query->getResult();
   }

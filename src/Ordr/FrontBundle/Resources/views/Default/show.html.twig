@@ -4,13 +4,19 @@
   <h2>{{ ordrMeta.name }}</h2>
 </div>
 <div class="clearfix" id="ordr">
-  <div class="columns" id="next-ordr">{{ ordrMeta.nextOrdr|format_date }}</div>
-  <div class="columns" id="sum"><span>{{ sum|number_format_decimal }}</span></div>
+  <div class="columns" id="next-ordr">
+    {{ ordrMeta.nextOrdr|format_date }}<br/>
+    {{ ordrMeta.nextOrdr|format_time }}
+  </div>
+  <div class="columns" id="sum">
+    {{ now|format_date }}<br/>
+    {{ now|format_time }}
+  </div>
 </div>
 {% if ordrMeta.adminToken == adminToken %}
 <div id="admin-view">
   <div id="admin-msg">
-    {{ 'admin link'|trans }}<br/>
+    {{ 'admin link (nicht teilen)'|trans }}<br/>
     <a href="{{ url('ordrmeta_show', {'token': ordrMeta.token, 'admin': ordrMeta.adminToken }) }}">http://ordr.io/{{ ordrMeta.token }}?admin={{ ordrMeta.adminToken }}</a>
   </div>
 </div>
@@ -21,7 +27,7 @@
   <div id="ordrs">
     {% if ownOrdrs|length > 0 %}
     <h4>Deine Bestellungen:</h4>
-    <ul>
+    <ul class="ordr-list">
       {% for ordr in ownOrdrs %}
       <li>
         <form id="user-delete-form"
@@ -39,7 +45,9 @@
         </form>
 
         <strong>{{ ordr.username }}</strong> <span class="stamp">{{ ordr.createdAt|format_date }}</span><br/>
-        bestellt {{ ordr.amount|number_format_decimal }} {{ ordr.extra }}
+        bestellt {{ ordr.amount|number_format_decimal }} mal:<br/>
+        {{ ordr.extra }} <span class="extra">({{ ordr.price|number_format_currency('EUR') }})</span><br/>
+        <strong>für <span class="price">{{ (ordr.price * ordr.amount)|number_format_currency('EUR') }}</span></strong>
 
         {% if ordrMeta.adminToken == adminToken %}
         <form id="admin-check-form"
@@ -61,7 +69,7 @@
     {% endif %}
     {% if otherOrdrs|length > 0 and (ordrMeta.adminToken == adminToken or ordrMeta.public) %}
     <h4>Bestellungen von anderen:</h4>
-    <ul>
+    <ul class="ordr-list">
       {% for ordr in otherOrdrs %}
       <li>
         {% if ordrMeta.adminToken == adminToken %}
@@ -78,7 +86,9 @@
         {% endif %}
 
         <strong>{{ ordr.username }}</strong> <span class="stamp">{{ ordr.createdAt|format_date }}</span><br/>
-        bestellt {{ ordr.amount|number_format_decimal }} {{ ordr.extra }}
+        bestellt {{ ordr.amount|number_format_decimal }} mal:<br/>
+        {{ ordr.extra }} <span class="extra">({{ ordr.price|number_format_currency('EUR') }})</span><br/>
+        <strong>für <span class="price">{{ (ordr.price * ordr.amount)|number_format_currency('EUR') }}</span></strong>
 
         {% if ordrMeta.adminToken == adminToken %}
         <form id="admin-check-form"
@@ -100,14 +110,18 @@
     {% endif %}
     {% if condensedList|length > 0 and (adminToken == ordrMeta.adminToken or ordrMeta.public) %}
     <h4>Zusammenfassung</h4>
-    <ul>
-    {% for name, amount in condensedList %}
-      <li>{{ amount|number_format_decimal }} mal {{ name }}</li>
+    <ul class="condensed">
+      {% set sum = 0 %}
+    {% for name, item in condensedList %}
+      {% set sum = sum+item.sum %}
+      <li>{{ item.amount|number_format_decimal }} mal {{ item.extra }} für <span class="price">{{ item.sum|number_format_currency('EUR') }}</span></li>
     {% endfor %}
+      <li class="sum"><strong>Gesamt: <span class="sum">{{ sum|number_format_currency('EUR') }}</span></strong></li>
     </ul>
     {% endif %}
   </div>
   <div id="main">
+    {% if (not closed) or (ordrMeta.adminToken == adminToken) %}
     <div id="form">
       <form class="nice" action="{{ path('ordr_create', {'token': ordrMeta.token}) }}"
             method="post" {{ form_enctype(form) }}>
@@ -121,8 +135,11 @@
         }}
         {{ form_errors(form.extra) }}
 
-        {{ form_widget(form.amount, {'id':'amount', 'attr':{'placeholder' : 'Wieviel'|trans, 'autocomplete':'off'}}) }}
+        {{ form_widget(form.amount, {'id':'amount', 'attr':{'placeholder' : 'Menge'|trans, 'autocomplete':'off'}}) }}
         {{ form_errors(form.amount) }}
+
+        {{ form_widget(form.price, {'id':'price', 'attr':{'placeholder' : 'Einzelpreis'|trans, 'autocomplete':'off'}}) }}
+        {{ form_errors(form.price) }}
 
         {{ form_rest(form) }}
         {% if ordrMeta.adminToken == adminToken %}
@@ -156,6 +173,9 @@
         {% endif %}
       </form>
     </div>
+    {% else %}
+      Bestellungen können jetzt nichtmehr berücksichtigt werden!
+    {% endif %}
   </div>
 </div>
 {% endblock %}
@@ -179,12 +199,16 @@
           success: function ( data ) {
             response($.map(data.extras, function ( item ) {
               return {
-                label: item.value,
-                value: item.value
+                label: item.label + " (" + item.localePrice + ")",
+                value: item.value,
+                price: item.price
               }
             }));
           }
         });
+      },
+      select: function (event, ui) {
+        $("#price").val(ui.item.price);
       },
       minLength: 2
     });

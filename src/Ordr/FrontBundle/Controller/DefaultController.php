@@ -14,14 +14,15 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class DefaultController extends Controller
 {
   /**
-   * @Route("/")
+   * @Route("/", name="index")
    * @Template()
    * @return array
    */
   public function indexAction()
   {
     $entity = new OrdrMeta();
-    $entity->setNextOrdr(new \DateTime('now'));
+    $now = new \DateTime('now');
+    $entity->setNextOrdr($now->add(new \DateInterval('P2D')));
     $form = $this->createForm(new OrdrMetaType(), $entity);
 
     return array(
@@ -49,7 +50,8 @@ class DefaultController extends Controller
       $token = str_split(base64_encode(hash('sha256', uniqid("", true))), 10);
       $entity->setToken($token[0]);
       $entity->setAdminToken($token[1]);
-      $entity->setCreatedAt(new \DateTime('now'));
+      $now = new \DateTime('now');
+      $entity->setCreatedAt($now);
 
       $em->persist($entity);
       $em->flush();
@@ -76,42 +78,20 @@ class DefaultController extends Controller
   public function showAction($token)
   {
     $request = $this->getRequest();
-    $em = $this->getDoctrine()->getEntityManager();
-
-    $ordrMeta = $em->getRepository('OrdrDataBundle:OrdrMeta')->findOneByToken($token);
-
-    if (!$ordrMeta) {
-      throw $this->createNotFoundException('This ordr.io does not exist');
-    }
+    list($em, $ordrMeta) = $this->fetchOrdr($token);
 
     if($request->get('admin') === $ordrMeta->getAdminToken()) {
       $request->getSession()->set('admin', $ordrMeta->getAdminToken());
       return $this->redirect($this->generateUrl('ordrmeta_show', array('token' => $ordrMeta->getToken())));
     }
 
-    $sum = 0;
-    foreach ($ordrMeta->getOrdrs() as $ordr) {
-      $sum += $ordr->getAmount();
-    }
+    $sum = $this->sumOrdrs($ordrMeta);
 
-    $entity = new Ordr();
-    $form = $this->createForm(new OrdrType(), $entity);
+    list($entity, $form) = $this->buildShowForm();
 
+    list($ordrs, $otherOrdrs, $hasOrdrs) = $this->fetchOrdrsForShow($em, $token);
 
-    $ordrs = $em->getRepository('OrdrDataBundle:Ordr')->findBySessionAndToken($this->getRequest()->getSession()->getId(), $token);
-    $otherOrdrs = $em->getRepository('OrdrDataBundle:Ordr')->findByTokenExcludeSession($token, $this->getRequest()->getSession()->getId());
-    $origCount = count($ordrs);
-    $hasOrdrs = $origCount > 0 ? 'yes' : 'no';
-
-    $condensedList = array();
-    foreach (array_merge($ordrs, $otherOrdrs) as $_ordr) {
-      if (!isset($condensedList[$_ordr->getExtra()])) {
-        $condensedList[$_ordr->getExtra()] = $_ordr->getAmount();
-      }
-      else {
-        $condensedList[$_ordr->getExtra()] += $_ordr->getAmount();
-      }
-    }
+    $condensedList = $this->condenseList($ordrs, $otherOrdrs);
 
     return array(
       'entity' => $entity,
@@ -123,8 +103,69 @@ class DefaultController extends Controller
       'token' => $token,
       'adminToken' => $request->getSession()->get('admin'),
       'ownOrdrs' => $ordrs,
-      'otherOrdrs' => $otherOrdrs
+      'otherOrdrs' => $otherOrdrs,
+      'closed' => new \DateTime('now') > $ordrMeta->getNextOrdr(),
+      'now' => new \DateTime('now')
     );
+  }
+
+  private function buildShowForm()
+  {
+    $entity = new Ordr();
+    $form = $this->createForm(new OrdrType(), $entity);
+    return array($entity, $form);
+  }
+
+  private function fetchOrdr($token)
+  {
+    $em = $this->getDoctrine()->getEntityManager();
+
+    $ordrMeta = $em->getRepository('OrdrDataBundle:OrdrMeta')->findOneByToken($token);
+
+    if (!$ordrMeta) {
+      throw $this->createNotFoundException('This ordr.io does not exist');
+    }
+    return array($em, $ordrMeta);
+  }
+
+  private function sumOrdrs($ordrMeta)
+  {
+    $sum = 0;
+    foreach ($ordrMeta->getOrdrs() as $ordr) {
+      $sum += $ordr->getAmount();
+    }
+    return $sum;
+  }
+
+  private function fetchOrdrsForShow($em, $token)
+  {
+    $ordrs = $em->getRepository('OrdrDataBundle:Ordr')->findBySessionAndToken($this->getRequest()->getSession()->getId(), $token);
+    $otherOrdrs = $em->getRepository('OrdrDataBundle:Ordr')->findByTokenExcludeSession($token, $this->getRequest()->getSession()->getId());
+    $origCount = count($ordrs);
+    $hasOrdrs = $origCount > 0 ? 'yes' : 'no';
+    return array($ordrs, $otherOrdrs, $hasOrdrs);
+  }
+
+  private function condenseList($ordrs, $otherOrdrs)
+  {
+    $condensedList = array();
+    foreach (array_merge($ordrs, $otherOrdrs) as $_ordr) {
+      if (!isset($condensedList[$_ordr->getExtra()+$_ordr->getPrice()])) {
+        $condensedList[$_ordr->getExtra()+$_ordr->getPrice()] = array(
+          'amount' => $_ordr->getAmount(),
+          'sum' => $_ordr->getPrice() * $_ordr->getAmount(),
+          'extra' => $_ordr->getExtra()
+        );
+      }
+      else {
+        $item = $condensedList[$_ordr->getExtra()+$_ordr->getPrice()];
+        $item['sum'] = ($_ordr->getPrice() * $_ordr->getAmount()) + $item['sum'];
+        $item['amount'] = $_ordr->getAmount() + $item['amount'];
+        $condensedList[$_ordr->getExtra()+$_ordr->getPrice()] = $item;
+      }
+    }
+
+    return $condensedList;
   }
 
   /**
@@ -170,6 +211,10 @@ class DefaultController extends Controller
       $sum += $ordr->getAmount();
     }
 
+    list($ordrs, $otherOrdrs, $hasOrdrs) = $this->fetchOrdrsForShow($em, $token);
+
+    $condensedList = $this->condenseList($ordrs, $otherOrdrs);
+
     return array(
       'entity' => $entity,
       'session' => $request->getSession(),
@@ -177,9 +222,12 @@ class DefaultController extends Controller
       'adminToken' => $adminToken,
       'ordrMeta' => $ordrMeta,
       'sum' => $sum,
-      'hasOrdrs' => 'no',
-      'ownOrdrs' => array(),
-      'otherOrdrs' => array()
+      'hasOrdrs' => $hasOrdrs,
+      'ownOrdrs' => $ordrs,
+      'otherOrdrs' => $otherOrdrs,
+      'condensedList' => $condensedList,
+      'closed' => new \DateTime('now') > $ordrMeta->getNextOrdr(),
+      'now' => new \DateTime('now')
     );
   }
 

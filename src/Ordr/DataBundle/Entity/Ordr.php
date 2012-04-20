@@ -39,6 +39,14 @@ class Ordr
   private $amount;
 
   /**
+   * @var decimal $price
+   *
+   * @ORM\Column(name="price", type="decimal", precision=10, scale=2)
+   * @Assert\NotBlank()
+   */
+  private $price;
+
+  /**
    * @var text $extra
    *
    * @ORM\Column(name="extra", type="text")
@@ -61,7 +69,7 @@ class Ordr
   private $checked;
 
   /**
-   * @var datetime $created_at
+   * @var \DateTime $created_at
    *
    * @ORM\Column(name="created_at", type="datetime")
    */
@@ -245,5 +253,21 @@ class Ordr
   public function setChecked($checked)
   {
     $this->checked = $checked;
+  }
+
+  /**
+   * @return \Ordr\DataBundle\Entity\decimal
+   */
+  public function getPrice()
+  {
+    return $this->price;
+  }
+
+  /**
+   * @param \Ordr\DataBundle\Entity\decimal $price
+   */
+  public function setPrice($price)
+  {
+    $this->price = $price;
   }
 }

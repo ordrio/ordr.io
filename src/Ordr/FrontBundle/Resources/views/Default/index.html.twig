@@ -9,7 +9,8 @@
       {{ form_widget(form.name, {'id':'name', 'attr':{'placeholder' : 'Name'|trans}}) }}
       {{ form_errors(form.name) }}
 
-      {{ form_widget(form.next_ordr, {'id':'next_ordr', 'value':now|format_date, 'attr':{'placeholder' : 'Wann'|trans}}) }}
+      <label for="next_ord">{{ 'Bestellung' }}</label>
+      {{ form_widget(form.next_ordr, {'id':'next_ordr', 'attr':{'placeholder' : 'Wann'|trans}}) }}
       {{ form_errors(form.next_ordr) }}
 
       <div id="options">
